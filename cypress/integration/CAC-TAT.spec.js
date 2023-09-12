@@ -96,10 +96,14 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         then(input => {expect(input[0].files[0].name).to.equal('example.json');});
     });
 
-    it('seleciona um arquivo simulando um drag-and-drop', function() { 
-        cy.get('#file-upload').selectFile('cypress/fixtures/example.json', {action:'drag-drop'}).
-        then(input => {expect(input[0].files[0].name).to.equal('example.json');});
+    it('verifica que a política de privacidade abre em outra aba sem a necessidade de um clique', function() { 
+        cy.get('a').should('have.attr', 'target', '_blank');
     });
-    
+
+    it('testa a página da política de privacidade de forma independente', function() { 
+        cy.visit('./src/privacy.html');
+        cy.contains('#title', 'CAC TAT - Política de privacidad').should('be.visible');
+    });
+
 });
   
